@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 async function startDb() {
   mongoose
-    .connect(process.env.DB, {
+    .connect("mongodb+srv://vashudev:vashudev143@cluster0.pizinn8.mongodb.net/chat?retryWrites=true&w=majority", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
