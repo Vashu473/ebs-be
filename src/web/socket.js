@@ -9,11 +9,11 @@ const dbStreams = async function (socket) {
 //  catching changes 
   UserStream.on("change", async (next) => {
     if (next.operationType === "insert") {
-     const count =  User.aggregate([{'$count': 'count'}]);
+     const count = await User.aggregate([{'$count': 'count'}]);
      await sendEmail({
       email: "av84770@gmail.com",
       subject: "Enrollment Count",
-      message: `Total students enrolled : ${count}`,
+      message: `Total students enrolled : ${count[0].count}`,
     });
     }
   });

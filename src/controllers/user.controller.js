@@ -8,11 +8,13 @@ const { signupM, loginM,updateProfileM,profileM } = require("../models/user.mode
 async function signupC(req, res) {
   const result = await signupM(req.body);
   res.json(result).status(200);
-  await sendEmail({
-    email: req.body.email,
-    subject: `Thank you for Enrollement`,
-    message: `Your Registartion Id : ${result?.data?._id} . We will notify you soon session date`,
-  });
+  if (result.success) {
+    await sendEmail({
+      email: req.body.email,
+      subject: `Thank you for Enrollment`,
+      message: `Your Registration Id : ${result?.data?._id} . We will notify you soon session date`,
+    });
+  }
   await logs(req.body, result, "signupC");
 }
 // User Login

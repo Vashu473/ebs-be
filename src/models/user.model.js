@@ -4,9 +4,16 @@ async function signupM(body) {
   try {
  const user=  await User.create(body);
   return { message: "User created Successfully", success: true, token: null,data:user };
-
   } catch (error) {
-    return { message: error.message, success: false, token: null };
+    let message = error.message;
+    switch (error.code) {
+      case 11000:
+        message = "User already exists"
+        break;
+      default:
+        break;
+    }
+    return { message: message, success: false, token: null };
   }
 }
 async function loginM(body) {
