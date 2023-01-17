@@ -28,7 +28,7 @@ app.use(express.static("public"));
 app.use(morgan("combined"))
 app.use(
   cors({
-    origin: "http://localhost:3002",
+    origin:process.env.COR,
     credentials: true,
   })
 );

@@ -1,9 +1,12 @@
 const User = require("../db/schema/user.schema");
-const {setToken} = require("../auth/jwt/jwt")
+const {setToken} = require("../auth/jwt/jwt");
+const sendEmail = require("../auth/jwt/SendEmail");
 async function signupM(body) {
   try {
-   await User.create(body);
-    return { message: "User created Successfully", success: true, token: null };
+ const user=  await User.create(body);
+   console.log(body)
+  return { message: "User created Successfully", success: true, token: null,data:user };
+
   } catch (error) {
     return { message: error.message, success: false, token: null };
   }
