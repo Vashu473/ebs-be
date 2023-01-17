@@ -1,5 +1,5 @@
 // calling log function
-const sendEmail = require("../auth/jwt/SendEmail");
+const sendEmail = require("../helper/email.helper");
 const logs = require("../common/logs.common");
 // calling logic function
 const { signupM, loginM,updateProfileM,profileM } = require("../models/user.model");
