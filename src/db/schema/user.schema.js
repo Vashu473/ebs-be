@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const UserSchema =new mongoose.Schema(
   {
-    name:  {
+    fname:  {
       type:String,
-      required:[true,"Please enter name"]
+      required:[true,"Please enter first name"]
+    },
+    lname:  {
+      type:String,
+      required:[true,"Please enter last name"]
     },
     email: {
       type:String,
@@ -16,22 +20,37 @@ const UserSchema =new mongoose.Schema(
       type:String,
       required:[true,"Please enter password"]
     },
-    interest: {
-      type:Array,
+    course: {
+      type:String,
     },
     img: {
       type:String,
+      default:"No IMG"
     },
     mobile: {
       type:Number,
       minLength:10,
-      maxLength:10
+      maxLength:10,
+      required:[true,"Please enter Mobile number"]
     },
-    address: {
+    city: {
       type:String,
     },
-    verified:{type:Boolean},
-    active:{type:Boolean},
+    state: {
+      type:String,
+    },
+    pincode: {
+      type:Number,
+    },
+    verified:{type:Boolean,
+    default:false
+    },
+    active:{type:Boolean,
+    default:false
+    },
+    block:{type:Boolean,
+    default:false
+    },
   },
   { timestamps: true }
 );

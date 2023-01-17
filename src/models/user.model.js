@@ -2,13 +2,12 @@ const User = require("../db/schema/user.schema");
 const {setToken} = require("../auth/jwt/jwt")
 async function signupM(body) {
   try {
-   await User.create({...body,verified:false,active:false});
+   await User.create(body);
     return { message: "User created Successfully", success: true, token: null };
   } catch (error) {
     return { message: error.message, success: false, token: null };
   }
 }
-
 async function loginM(body) {
   try {
     const { email, password } = body;
@@ -27,7 +26,6 @@ async function loginM(body) {
     return { message: error.message, success: false, token: null };
   }
 }
-
 module.exports = {
   signupM,
   loginM,
