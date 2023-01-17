@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
     }
   })
   
-  const upload = multer({ storage: storage })
+const upload = multer({ storage: storage })
 UserRouter.post("/signup",  signupC);
 UserRouter.post("/login",  loginC);
 UserRouter.put("/profile",upload.single("profile") ,getToken,  profileC);
