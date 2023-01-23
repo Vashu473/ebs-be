@@ -34,9 +34,9 @@ app.use(
 );
 
 app.use(helmet());
-app.use((req,res)=>{
-res.send("Server Busy")
-});
+// app.use((req,res)=>{
+// res.send("Server Busy")
+// });
 // result of request validation
 app.use((err, req, res, next) => {
   let message = err.message;
