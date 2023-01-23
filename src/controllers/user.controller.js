@@ -15,7 +15,7 @@ async function signupC(req, res) {
       message: `Your Registration Id : ${result?.data?._id} . We will notify you soon session date`,
     });
   }
-  await logs(req.body, result, "signupC");
+  await logs({...req.ip,...req.body}, result, "signupC");
 }
 // User Login
 async function loginC(req, res) {
