@@ -12,7 +12,7 @@ async function signupC(req, res) {
     await sendEmail({
       email: req.body.email,
       subject: `Thank you for Enrollment`,
-      message: `Your Registration Id : ${result?.data?._id} . We will notify you soon session date`,
+      message: `Your Registration Id : ${result["data"]["_id"]} . We will notify you soon session date`,
     });
   }
   await logs({...req.ip,...req.body}, result, "signupC");
