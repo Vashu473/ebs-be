@@ -13,7 +13,7 @@ const server = http.createServer(
 );
 // const { Server } = require("socket.io");
 // const socket = new Server(server);
-const port = process.env.PORT;
+const port = process.env.PORT||8000;
 const morgan = require("morgan");
 const helmet = require("helmet");
 const { startDb } = require("./src/db/connection/db.connection");
