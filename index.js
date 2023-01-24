@@ -4,13 +4,10 @@ const app = express();
 const http = require("http");
 const path = require("path");
 const fs = require("fs");
-const server = http.createServer(
-
-  app
-);
+const server = http.createServer(app);
 // const { Server } = require("socket.io");
 // const socket = new Server(server);
-const port = process.env.PORT||8000;
+const port = process.env.PORT || 8000;
 const morgan = require("morgan");
 const helmet = require("helmet");
 const { startDb } = require("./src/db/connection/db.connection");
@@ -68,12 +65,12 @@ app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
 // routing listening
 async function startServer() {
-  if (isMaster) {
-    for (let i of cpus()) fork();
-  } else {
-    await startDb();
-    server.listen(port, () => console.log("Server running on port", port));
-  }
+  // if (isMaster) {
+  //   for (let i of cpus()) fork();
+  // } else {
+  await startDb();
+  server.listen(port, () => console.log("Server running on port", port));
+  // }
 }
 startServer();
-module.exports=app
+module.exports = app;
