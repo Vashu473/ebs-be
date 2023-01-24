@@ -11,8 +11,8 @@ const server = http.createServer(
   },
   app
 );
-const { Server } = require("socket.io");
-const socket = new Server(server);
+// const { Server } = require("socket.io");
+// const socket = new Server(server);
 const port = process.env.PORT;
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -65,7 +65,7 @@ app.use((err, req, res, next) => {
   }
 });
 // socket start
-startSocket(socket);
+startSocket({});
 // adding routing middle ware
 app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
