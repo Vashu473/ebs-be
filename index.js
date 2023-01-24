@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const http = require("https");
+const path = require("path");
 const fs = require("fs");
 const server = http.createServer(
   {
@@ -15,7 +16,6 @@ const socket = new Server(server);
 const port = process.env.PORT;
 const morgan = require("morgan");
 const helmet = require("helmet");
-const path = require("path");
 const { startDb } = require("./src/db/connection/db.connection");
 const body_parser = require("body-parser");
 const { isMaster, fork } = require("cluster");
