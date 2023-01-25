@@ -32,20 +32,20 @@ app.use(
     credentials: true,
   })
 );
-let ips = []
-app.use((req,res,next)=>{
-  if(req.url=="/v1/user/signup"){
-    ips = [...ips,ip.address()]
-    let validate =ips.filter(a=>a == ip.address());
-    if (validate.length>2) {
-      return res.json({ message: "Your IP is blocked by some issues, Try again later", success: true, token: null })
-    } else{
-      next()
-    }
-  }else{
-    next()
-  }
-})
+// let ips = []
+// app.use((req,res,next)=>{
+//   if(req.url=="/v1/user/signup"){
+//     ips = [...ips,ip.address()]
+//     let validate =ips.filter(a=>a == ip.address());
+//     if (validate.length>2) {
+//       return res.json({ message: "Your IP is blocked by some issues, Try again later", success: true, token: null })
+//     } else{
+//       next()
+//     }
+//   }else{
+//     next()
+//   }
+// })
 app.use(helmet());
 // app.use((req,res)=>{
 // res.send("Server Busy")
