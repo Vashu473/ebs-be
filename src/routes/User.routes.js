@@ -5,7 +5,7 @@ const { getToken } = require("../auth/jwt/jwt");
 const multer = require("multer")
 // calling functions
 const {
-    signupC,loginC,profileC,updateProfileC
+    signupC,loginC,profileC,updateProfileC,profileCP
 } = require("../controllers/user.controller");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -20,7 +20,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 UserRouter.post("/signup",  signupC);
 UserRouter.post("/login",  loginC);
-UserRouter.put("/profile",upload.single("profile") ,getToken,  profileC);
+UserRouter.put("/profile",upload.single("profile") ,getToken,  profileCP);
 UserRouter.put("/updateProfile", getToken, updateProfileC);
+UserRouter.get("/profile/:email", getToken, profileC);
 
 module.exports = UserRouter;

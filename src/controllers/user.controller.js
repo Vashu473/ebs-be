@@ -2,7 +2,7 @@
 const sendEmail = require("../helper/email.helper");
 const logs = require("../common/logs.common");
 // calling logic function
-const { signupM, loginM,updateProfileM,profileM } = require("../models/user.model");
+const { signupM, loginM,updateProfileM,profileMP,profileM } = require("../models/user.model");
 
 // User Signup`
 async function signupC(req, res) {
@@ -24,8 +24,8 @@ async function loginC(req, res) {
   await logs(req.body, result, "loginC");
 }
 // User Profile Image
-async function profileC(req, res) {
-  const result = await profileM(req.body);
+async function profileCP(req, res) {
+  const result = await profileMP(req.body);
   res.json(result).status(200);
   await logs(req.body, result, "profileC");
 }
@@ -35,7 +35,13 @@ async function updateProfileC(req, res) {
   res.json(result).status(200);
   await logs(req.body, result, "updateProfileC");
 }
+// User  Profile
+async function profileC(req, res) {
+  const result = await profileM(req.params.email);
+  res.json(result).status(200);
+  await logs(req.body, result, "updateProfileC");
+}
 module.exports = {
   signupC,
-  loginC,profileC,updateProfileC
+  loginC,profileCP,updateProfileC,profileC
 };

@@ -1,7 +1,7 @@
 const User = require("../db/schema/user.schema");
 const sendEmail = require("../helper/email.helper");
 
-const dbStreams = async function (socket) {
+const dbStreams = async function () {
   // creating streams
   const UserStream = User.watch([], {
     fullDocument: "updateLookup",
@@ -25,6 +25,6 @@ const startSocket = async function (socket) {
 //     });
 //   });
 
-  dbStreams(socket)
+  dbStreams()
 };
 module.exports = startSocket;
