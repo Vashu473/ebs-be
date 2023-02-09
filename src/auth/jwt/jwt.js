@@ -17,12 +17,14 @@ async function getToken(req, res, next) {
       req.headers.authorization.split(" ")[0] === "Bearer")
   ) {
     let token = req.headers.authorization.split(" ")[1];
-    verify(token, process.env.JWT_SECRET, function (err) {
+    verify(token, process.env.JWT_SECRET,async function (err,data) {
+      console.log(err,data)
       if (err) {
         return res
           .status(401)
           .json({ message: "Token expired", success: false, token: null });
       } else {
+        req.email = data.data
         next();
       }
     });

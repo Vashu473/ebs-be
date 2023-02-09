@@ -37,7 +37,8 @@ async function updateProfileC(req, res) {
 }
 // User  Profile
 async function profileC(req, res) {
-  const result = await profileM(req.params.email);
+  console.log(req.email)
+  const result = await profileM(req.email);
   res.json(result).status(200);
   await logs(req.body, result, "updateProfileC");
 }

@@ -22,6 +22,6 @@ UserRouter.post("/signup",  signupC);
 UserRouter.post("/login",  loginC);
 UserRouter.put("/profile",upload.single("profile") ,getToken,  profileCP);
 UserRouter.put("/updateProfile", getToken, updateProfileC);
-UserRouter.get("/profile/:email", getToken, profileC);
+UserRouter.get("/profile", getToken, profileC);
 
 module.exports = UserRouter;
