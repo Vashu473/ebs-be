@@ -20,7 +20,10 @@ const TestRouter = require("./src/routes/Test.routes");
 const UserRouter = require("./src/routes/User.routes");
 // adding middleware
 // Body-parser middleware
+
 app.use("/", express.static(path.join(__dirname, "./images")));
+app.use("/", express.static(path.join(__dirname, "./videos")));
+
 app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
 app.use(express.json());

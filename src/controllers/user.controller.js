@@ -2,7 +2,18 @@
 const sendEmail = require("../helper/email.helper");
 const logs = require("../common/logs.common");
 // calling logic function
-const { signupM, loginM,updateProfileM,profileMP,profileM } = require("../models/user.model");
+const {
+  signupM,
+  loginM,
+  profileMP,
+  profileM,
+  profileUpdate,
+  verifyEmail,
+  forgotPassword,
+  videoUpload,
+  allVideos,
+  verifyOtp,
+} = require("../models/user.model");
 
 // User Signup`
 async function signupC(req, res) {
@@ -15,7 +26,7 @@ async function signupC(req, res) {
       message: `Your Registration Id : ${result["data"]["_id"]} . We will notify you soon session date`,
     });
   }
-  await logs({...req.ip,...req.body}, result, "signupC");
+  await logs({ ...req.ip, ...req.body }, result, "signupC");
 }
 // User Login
 async function loginC(req, res) {
@@ -29,20 +40,81 @@ async function profileCP(req, res) {
   res.json(result).status(200);
   await logs(req.body, result, "profileC");
 }
-// User Update Profile
-async function updateProfileC(req, res) {
-  const result = await updateProfileM(req.body);
-  res.json(result).status(200);
-  await logs(req.body, result, "updateProfileC");
-}
+
 // User  Profile
 async function profileC(req, res) {
-  console.log(req.email)
+  console.log(req.email);
   const result = await profileM(req.email);
   res.json(result).status(200);
   await logs(req.body, result, "updateProfileC");
 }
+
+// User Update Profile
+async function profileUpdatee(req, res) {
+  // console.log(req.body);
+  const result = await profileUpdate(req);
+  res.json(result).status(200);
+  await logs(req.body, result, "updateProfileC");
+}
+
+// user verify email
+async function userVerifyEmail(req, res) {
+  const result = await verifyEmail(req);
+
+  res.json(result).status(200);
+  if (result.success) {
+    await sendEmail({
+      email: req.body.email,
+      subject: `Your verification otp is`,
+      message: `Your otp is: ${
+        result.message.code
+      } .${"https://ebs-fe.vercel.app/otp/Verify"} you can verify your otp`,
+    });
+  }
+  await logs(req.body, result, "verifyEmail");
+}
+
+// user otp verify
+async function userOtpVerify(req, res) {
+  // console.log(req.body);
+  const result = await verifyOtp(req);
+  res.json(result).status(200);
+  await logs(req.body, result, "verifyotp");
+}
+
+// user forgot password
+async function userForgotPassword(req, res) {
+  // console.log(req.body);
+  const result = await forgotPassword(req);
+  res.json(result).status(200);
+  await logs(req.body, result, "forgotPassword");
+}
+
+// videoUpload for user
+async function videoForUser(req, res) {
+  // console.log(req.body);
+  const result = await videoUpload(req);
+  res.json(result).status(200);
+  // await logs(req.body, result, "forgotPassword");
+}
+
+// All Videos for users
+async function allVideoForUser(req, res) {
+  // console.log(req.body);
+  const result = await allVideos();
+  res.json(result).status(200);
+  // await logs(req.body, result, "forgotPassword");
+}
+
 module.exports = {
   signupC,
-  loginC,profileCP,updateProfileC,profileC
+  loginC,
+  profileCP,
+  profileC,
+  profileUpdatee,
+  userVerifyEmail,
+  userForgotPassword,
+  videoForUser,
+  allVideoForUser,
+  userOtpVerify,
 };
