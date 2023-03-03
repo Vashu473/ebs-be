@@ -1,5 +1,5 @@
 const User = require("../db/schema/user.schema");
-const videoDatabase = require("../db/schema/video.schema");
+const constcUsDatabase = require("../db/schema/contactUs.schema");
 const otpDatabase = require("../db/schema/otp.schema");
 const { setToken } = require("../auth/jwt/jwt");
 async function signupM(body) {
@@ -97,13 +97,19 @@ async function profileUpdate(req) {
   }
 }
 
-// async function contactUs(){
-//   try {
-//     const user=await
-//   } catch (error) {
-//     return { message: error.message, success: false, token: null };
-//   }
-// }
+async function contactUs(req) {
+  try {
+    const { name, email, message } = req.body;
+    const user = await constcUsDatabase.create({
+      name,
+      email,
+      message,
+    });
+    return { message: user, success: true, token: null };
+  } catch (error) {
+    return { message: error.message, success: false, token: null };
+  }
+}
 
 async function verifyEmail(req) {
   try {
@@ -233,4 +239,5 @@ module.exports = {
   // videoUpload,
   // allVideos,
   verifyOtp,
+  contactUs,
 };

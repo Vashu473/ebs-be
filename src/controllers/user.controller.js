@@ -13,6 +13,7 @@ const {
   // videoUpload,
   // allVideos,
   verifyOtp,
+  contactUs,
 } = require("../models/user.model");
 
 // User Signup`
@@ -72,6 +73,13 @@ async function userVerifyEmail(req, res) {
   await logs(req.body, result, "verifyEmail");
 }
 
+// user contact us
+async function userContactus(req, res) {
+  // console.log(req.body);
+  const result = await contactUs(req);
+  res.json(result).status(200);
+  await logs(req.body, result, "contactus");
+}
 // user otp verify
 async function userOtpVerify(req, res) {
   // console.log(req.body);
@@ -115,4 +123,5 @@ module.exports = {
   // videoForUser,
   // allVideoForUser,
   userOtpVerify,
+  userContactus,
 };

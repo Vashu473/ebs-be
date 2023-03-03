@@ -16,6 +16,7 @@ const {
   // videoForUser,
   // allVideoForUser,
   userOtpVerify,
+  userContactus,
 } = require("../controllers/user.controller");
 
 // const storage = multer.diskStorage({
@@ -52,6 +53,7 @@ UserRouter.put(
   getToken,
   profileUpdatee
 );
+UserRouter.post("/contactUs", userContactus);
 UserRouter.post("/verifyEmail", userVerifyEmail);
 UserRouter.post("/verify/otp", userOtpVerify);
 UserRouter.post("/forgotPassword", userForgotPassword);
