@@ -18,6 +18,7 @@ const cors = require("cors");
 const startSocket = require("./src/web/socket");
 const TestRouter = require("./src/routes/Test.routes");
 const UserRouter = require("./src/routes/User.routes");
+const VideoRouter = require("./src/routes/Video.routes");
 // adding middleware
 // Body-parser middleware
 
@@ -64,6 +65,7 @@ startSocket({});
 // adding routing middle ware
 app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
+app.use("/v1/video", VideoRouter);
 // routing listening
 async function startServer() {
   // if (isMaster) {

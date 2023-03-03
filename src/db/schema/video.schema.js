@@ -4,16 +4,15 @@ const videoSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
     },
     desc: {
       type: String,
-      required: true,
     },
-    video: {
+    src: {
       type: String,
-      required: true,
     },
+    course:String,
+    video:String
   },
   { timestamps: true }
 );
