@@ -10,8 +10,8 @@ const {
   profileUpdate,
   verifyEmail,
   forgotPassword,
-  videoUpload,
-  allVideos,
+  // videoUpload,
+  // allVideos,
   verifyOtp,
 } = require("../models/user.model");
 
@@ -66,9 +66,7 @@ async function userVerifyEmail(req, res) {
     await sendEmail({
       email: req.body.email,
       subject: `Your verification otp is`,
-      message: `Your otp is: ${
-        result.message.code
-      } .${"https://ebs-fe.vercel.app/otp/Verify"} you can verify your otp`,
+      message: `Your otp is: ${result.message.code}, you can verify your otp`,
     });
   }
   await logs(req.body, result, "verifyEmail");
@@ -90,21 +88,21 @@ async function userForgotPassword(req, res) {
   await logs(req.body, result, "forgotPassword");
 }
 
-// videoUpload for user
-async function videoForUser(req, res) {
-  // console.log(req.body);
-  const result = await videoUpload(req);
-  res.json(result).status(200);
-  // await logs(req.body, result, "forgotPassword");
-}
+// // videoUpload for user
+// async function videoForUser(req, res) {
+//   // console.log(req.body);
+//   const result = await videoUpload(req);
+//   res.json(result).status(200);
+//   // await logs(req.body, result, "forgotPassword");
+// }
 
-// All Videos for users
-async function allVideoForUser(req, res) {
-  // console.log(req.body);
-  const result = await allVideos();
-  res.json(result).status(200);
-  // await logs(req.body, result, "forgotPassword");
-}
+// // All Videos for users
+// async function allVideoForUser(req, res) {
+//   // console.log(req.body);
+//   const result = await allVideos();
+//   res.json(result).status(200);
+//   // await logs(req.body, result, "forgotPassword");
+// }
 
 module.exports = {
   signupC,
@@ -114,7 +112,7 @@ module.exports = {
   profileUpdatee,
   userVerifyEmail,
   userForgotPassword,
-  videoForUser,
-  allVideoForUser,
+  // videoForUser,
+  // allVideoForUser,
   userOtpVerify,
 };

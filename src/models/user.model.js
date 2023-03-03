@@ -76,7 +76,6 @@ async function profileUpdate(req) {
       fname: req.body.fname,
       lname: req.body.lname,
       mobile: req.body.mobile,
-      img: req?.file?.filename,
     };
     const user = await User.findOneAndUpdate(
       { email: req?.email },
@@ -97,6 +96,14 @@ async function profileUpdate(req) {
     return { message: error.message, success: false, token: null };
   }
 }
+
+// async function contactUs(){
+//   try {
+//     const user=await
+//   } catch (error) {
+//     return { message: error.message, success: false, token: null };
+//   }
+// }
 
 async function verifyEmail(req) {
   try {
@@ -181,40 +188,40 @@ async function forgotPassword(req) {
   }
 }
 
-// video post for user
-async function videoUpload(req) {
-  try {
-    const data = await videoDatabase.create({
-      title: req.body.title,
-      desc: req.body.desc,
-      video: req.file.filename,
-    });
+// // video post for user
+// async function videoUpload(req) {
+//   try {
+//     const data = await videoDatabase.create({
+//       title: req.body.title,
+//       desc: req.body.desc,
+//       video: req.file.filename,
+//     });
 
-    if (!data) {
-      return { message: "internal server error", success: false };
-    }
+//     if (!data) {
+//       return { message: "internal server error", success: false };
+//     }
 
-    return { message: data, success: true };
-  } catch (error) {
-    return { message: error.message, success: false, token: null };
-  }
-}
+//     return { message: data, success: true };
+//   } catch (error) {
+//     return { message: error.message, success: false, token: null };
+//   }
+// }
 
 // get All video for Users
 
-async function allVideos() {
-  try {
-    const data = await videoDatabase.find({});
+// async function allVideos() {
+//   try {
+//     const data = await videoDatabase.find({});
 
-    if (!data) {
-      return { message: "internal server error", success: false };
-    }
+//     if (!data) {
+//       return { message: "internal server error", success: false };
+//     }
 
-    return { message: data, success: true };
-  } catch (error) {
-    return { message: error.message, success: false, token: null };
-  }
-}
+//     return { message: data, success: true };
+//   } catch (error) {
+//     return { message: error.message, success: false, token: null };
+//   }
+// }
 module.exports = {
   signupM,
   loginM,
@@ -223,7 +230,7 @@ module.exports = {
   profileUpdate,
   verifyEmail,
   forgotPassword,
-  videoUpload,
-  allVideos,
+  // videoUpload,
+  // allVideos,
   verifyOtp,
 };
