@@ -2,8 +2,6 @@ const express = require("express");
 const UserRouter = express.Router();
 const celebrate = require("celebrate");
 const { getToken } = require("../auth/jwt/jwt");
-const path = require("path");
-const multer = require("multer");
 // calling functions
 const {
   signupC,
@@ -17,6 +15,7 @@ const {
   // allVideoForUser,
   userOtpVerify,
   userContactus,
+  sendEmailToAllC,
 } = require("../controllers/user.controller");
 
 // const storage = multer.diskStorage({
@@ -47,6 +46,7 @@ UserRouter.post("/signup", signupC);
 UserRouter.post("/login", loginC);
 UserRouter.put("/profile", getToken, profileCP);
 UserRouter.get("/profile", getToken, profileC);
+UserRouter.get("/sendEmail", sendEmailToAllC);
 UserRouter.put(
   "/updateProfile",
 
@@ -54,6 +54,7 @@ UserRouter.put(
   profileUpdatee
 );
 UserRouter.post("/contactUs", userContactus);
+// UserRouter.get("/allContactUs", getContactUs);
 UserRouter.post("/verifyEmail", userVerifyEmail);
 UserRouter.post("/verify/otp", userOtpVerify);
 UserRouter.post("/forgotPassword", userForgotPassword);

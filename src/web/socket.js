@@ -1,30 +1,30 @@
 const User = require("../db/schema/user.schema");
-const sendEmail = require("../helper/email.helper");
+const { sendEmail } = require("../helper/email.helper");
 
 const dbStreams = async function () {
   // creating streams
   const UserStream = User.watch([], {
     fullDocument: "updateLookup",
   });
-//  catching changes 
+  //  catching changes
   UserStream.on("change", async (next) => {
     if (next.operationType === "insert") {
-     const count = await User.aggregate([{'$count': 'count'}]);
-     await sendEmail({
-      email: "av84770@gmail.com",
-      subject: "Enrollment Count",
-      message: `Total students enrolled : ${count[0].count}`,
-    });
+      const count = await User.aggregate([{ $count: "count" }]);
+      await sendEmail({
+        email: "av84770@gmail.com",
+        subject: "Enrollment Count",
+        message: `Total students enrolled : ${count[0].count}`,
+      });
     }
   });
 };
 const startSocket = async function (socket) {
-//   socket.of("socket").on("connection", (socket) => {
-//     socket.on("receive", (data) => {
-//       console.log(data);
-//     });
-//   });
+  //   socket.of("socket").on("connection", (socket) => {
+  //     socket.on("receive", (data) => {
+  //       console.log(data);
+  //     });
+  //   });
 
-  dbStreams()
+  dbStreams();
 };
 module.exports = startSocket;

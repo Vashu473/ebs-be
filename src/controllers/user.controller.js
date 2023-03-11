@@ -1,6 +1,6 @@
 // calling log function
-const sendEmail = require("../helper/email.helper");
 const logs = require("../common/logs.common");
+const { sendEmail } = require("../helper/email.helper");
 // calling logic function
 const {
   signupM,
@@ -10,10 +10,9 @@ const {
   profileUpdate,
   verifyEmail,
   forgotPassword,
-  // videoUpload,
-  // allVideos,
   verifyOtp,
   contactUs,
+  sendEmailToAllM,
 } = require("../models/user.model");
 
 // User Signup`
@@ -21,13 +20,18 @@ async function signupC(req, res) {
   const result = await signupM(req.body);
   res.json(result).status(200);
   if (result.success) {
-    await sendEmail({
+    sendEmail({
       email: req.body.email,
       subject: `Thank you for Enrollment`,
       message: `Your Registration Id : ${result["data"]["_id"]} . We will notify you soon session date`,
     });
   }
-  await logs({ ...req.ip, ...req.body }, result, "signupC");
+  await logs(req.body, result, "signupC");
+}
+// Sent Email to All`
+async function sendEmailToAllC(req, res) {
+  const result = await sendEmailToAllM(req.body);
+  res.json(result).status(200);
 }
 // User Login
 async function loginC(req, res) {
@@ -121,7 +125,7 @@ module.exports = {
   userVerifyEmail,
   userForgotPassword,
   // videoForUser,
-  // allVideoForUser,
+  sendEmailToAllC,
   userOtpVerify,
   userContactus,
 };

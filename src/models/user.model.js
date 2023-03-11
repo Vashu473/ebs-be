@@ -2,10 +2,13 @@ const User = require("../db/schema/user.schema");
 const constcUsDatabase = require("../db/schema/contactUs.schema");
 const otpDatabase = require("../db/schema/otp.schema");
 const { setToken } = require("../auth/jwt/jwt");
+const { sendMailToAll, sendEmail } = require("../helper/email.helper");
+
+const { unSeenVideoWarning } = require("../constants/constants");
+
 async function signupM(body) {
   try {
     const user = await User.create(body);
-
     return {
       message: "User created Successfully",
       success: true,
@@ -67,9 +70,7 @@ async function profileMP(email) {
     return { message: error.message, success: false, token: null };
   }
 }
-
 // update user profile
-
 async function profileUpdate(req) {
   try {
     const userProfileUpdate = {
@@ -100,6 +101,11 @@ async function profileUpdate(req) {
 async function contactUs(req) {
   try {
     const { name, email, message } = req.body;
+    sendEmail({
+      email: "ebstechnology085@gmail.com",
+      subject: `contact Us query details`,
+      message,
+    });
     const user = await constcUsDatabase.create({
       name,
       email,
@@ -110,6 +116,32 @@ async function contactUs(req) {
     return { message: error.message, success: false, token: null };
   }
 }
+
+// async function getContactUs(req, res) {
+//   try {
+//     const user = await constcUsDatabase.find({});
+
+//     if (!user) {
+//       res.status(200).json({
+//         success: false,
+//         message: "data not found",
+//       });
+//     }
+
+//     sendEmail({
+//       email: "ebstechnology085@gmail.com",
+//       subject: `contactUs query detaails`,
+//       message: `number of queries : ${user?.length} ${user?.message}`,
+//     });
+
+//     return res.status(200).json({
+//       success: true,
+//       message: user,
+//     });
+//   } catch (error) {
+//     return { message: error.message, success: false, token: null };
+//   }
+// }
 
 async function verifyEmail(req) {
   try {
@@ -194,6 +226,24 @@ async function forgotPassword(req) {
   }
 }
 
+const sendEmailToAllM = async () => {
+  try {
+    const user = await User.find({});
+    sendMailToAll({
+      email: user,
+      subject: unSeenVideoWarning,
+      message: `You can watch videos on :- https://ebs-fe.vercel.app`,
+    });
+    return {
+      success: true,
+      message: "sent",
+      token: null,
+    };
+  } catch (error) {
+    return { message: error.message, success: false, token: null };
+  }
+};
+
 // // video post for user
 // async function videoUpload(req) {
 //   try {
@@ -240,4 +290,6 @@ module.exports = {
   // allVideos,
   verifyOtp,
   contactUs,
+  sendEmailToAllM,
+  // getContactUs,
 };
