@@ -19,6 +19,7 @@ const startSocket = require("./src/web/socket");
 const TestRouter = require("./src/routes/Test.routes");
 const UserRouter = require("./src/routes/User.routes");
 const VideoRouter = require("./src/routes/Video.routes");
+const User = require("./src/db/schema/user.schema");
 // adding middleware
 // Body-parser middleware
 
@@ -67,6 +68,13 @@ app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
 app.use("/v1/video", VideoRouter);
 // routing listening
+
+// user model attendence code
+setInterval(async () => {
+  console.log("hello setInterval");
+  await User.updateMany({ active: true }, { active: false });
+}, 79200000);
+
 async function startServer() {
   // if (isMaster) {
   //   for (let i of cpus()) fork();

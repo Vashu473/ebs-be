@@ -244,6 +244,31 @@ const sendEmailToAllM = async () => {
   }
 };
 
+let attendenceUser = 0;
+const attendenceM = async (req) => {
+  let newData = {
+    attendence: (attendenceUser = attendenceUser + 1),
+    active: true,
+  };
+
+  try {
+    const user = await User.findOneAndUpdate(
+      { email: req.email },
+      newData,
+
+      {
+        new: true,
+      }
+    );
+    if (!user) {
+      return { message: "Please Login First", success: false, token: null };
+    }
+    return { message: user, success: true, token: null };
+  } catch (error) {
+    return { message: error.message, success: false, token: null };
+  }
+};
+
 // // video post for user
 // async function videoUpload(req) {
 //   try {
@@ -291,5 +316,6 @@ module.exports = {
   verifyOtp,
   contactUs,
   sendEmailToAllM,
+  attendenceM,
   // getContactUs,
 };

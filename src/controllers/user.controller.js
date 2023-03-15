@@ -13,6 +13,7 @@ const {
   verifyOtp,
   contactUs,
   sendEmailToAllM,
+  attendenceM,
 } = require("../models/user.model");
 
 // User Signup`
@@ -23,7 +24,7 @@ async function signupC(req, res) {
     sendEmail({
       email: req.body.email,
       subject: `Thank you for Enrollment`,
-      message: `Your Registration Id : ${result["data"]["_id"]} . We will notify you soon session date`,
+      message: `Your Registration Id : ${result["data"]["_id"]} . Thank you for joining us`,
     });
   }
   await logs(req.body, result, "signupC");
@@ -94,10 +95,16 @@ async function userOtpVerify(req, res) {
 
 // user forgot password
 async function userForgotPassword(req, res) {
-  // console.log(req.body);
   const result = await forgotPassword(req);
   res.json(result).status(200);
   await logs(req.body, result, "forgotPassword");
+}
+
+// attendence system for users
+async function attendenceC(req, res) {
+  const result = await attendenceM(req);
+  res.json(result).status(200);
+  await logs(req.body, result, "attendence");
 }
 
 // // videoUpload for user
@@ -128,4 +135,5 @@ module.exports = {
   sendEmailToAllC,
   userOtpVerify,
   userContactus,
+  attendenceC,
 };

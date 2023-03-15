@@ -16,6 +16,7 @@ const {
   userOtpVerify,
   userContactus,
   sendEmailToAllC,
+  attendenceC,
 } = require("../controllers/user.controller");
 
 // const storage = multer.diskStorage({
@@ -46,6 +47,7 @@ UserRouter.post("/signup", signupC);
 UserRouter.post("/login", loginC);
 UserRouter.put("/profile", getToken, profileCP);
 UserRouter.get("/profile", getToken, profileC);
+UserRouter.get("/attendence", getToken, attendenceC);
 UserRouter.get("/sendEmail", sendEmailToAllC);
 UserRouter.put(
   "/updateProfile",
