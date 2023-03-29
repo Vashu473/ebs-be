@@ -49,6 +49,7 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
     block: { type: Boolean, default: false },
+    guest: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

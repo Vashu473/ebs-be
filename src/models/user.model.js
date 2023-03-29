@@ -4,7 +4,7 @@ const otpDatabase = require("../db/schema/otp.schema");
 const { setToken } = require("../auth/jwt/jwt");
 const { sendMailToAll, sendEmail } = require("../helper/email.helper");
 
-const { unSeenVideoWarning } = require("../constants/constants");
+const { unSeenVideoWarning, whatsappGroup } = require("../constants/constants");
 
 async function signupM(body) {
   try {
@@ -77,6 +77,7 @@ async function profileUpdate(req) {
       fname: req.body.fname,
       lname: req.body.lname,
       mobile: req.body.mobile,
+      password: req.body.password,
     };
     const user = await User.findOneAndUpdate(
       { email: req?.email },
@@ -104,13 +105,14 @@ async function contactUs(req) {
     sendEmail({
       email: "ebstechnology085@gmail.com",
       subject: `contact Us query details`,
-      message,
+      message: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     });
     const user = await constcUsDatabase.create({
       name,
       email,
       message,
     });
+
     return { message: user, success: true, token: null };
   } catch (error) {
     return { message: error.message, success: false, token: null };
@@ -232,7 +234,7 @@ const sendEmailToAllM = async () => {
     sendMailToAll({
       email: user,
       subject: unSeenVideoWarning,
-      message: `You can watch videos on :- https://ebs-fe.vercel.app`,
+      message: `You can watch videos on EBS Website :- https://ebs-fe.vercel.app`,
     });
     return {
       success: true,

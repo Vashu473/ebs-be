@@ -11,8 +11,8 @@ const videoSchema = new mongoose.Schema(
     src: {
       type: String,
     },
-    course:String,
-    video:String
+    course: [String],
+    video: String,
   },
   { timestamps: true }
 );
