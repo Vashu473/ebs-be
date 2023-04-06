@@ -8,7 +8,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const socket = new Server(server, {
   cors: {
-    origin: "http://127.0.0.1:5173",
+    origin: "https://ebs-fe.vercel.app",
   },
 });
 const port = process.env.PORT || 8000;
