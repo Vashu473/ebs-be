@@ -5,8 +5,12 @@ const http = require("http");
 const path = require("path");
 const fs = require("fs");
 const server = http.createServer(app);
-// const { Server } = require("socket.io");
-// const socket = new Server(server);
+const { Server } = require("socket.io");
+const socket = new Server(server, {
+  cors: {
+    origin: "http://127.0.0.1:5173",
+  },
+});
 const port = process.env.PORT || 8000;
 const morgan = require("morgan");
 const helmet = require("helmet");
@@ -62,18 +66,12 @@ app.use((err, req, res, next) => {
   }
 });
 // socket start
-startSocket({});
+startSocket(socket);
 // adding routing middle ware
 app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
 app.use("/v1/video", VideoRouter);
 // routing listening
-
-// user model attendence code
-setInterval(async () => {
-  console.log("hello setInterval");
-  await User.updateMany({ active: true }, { active: false });
-}, 79200000);
 
 async function startServer() {
   // if (isMaster) {

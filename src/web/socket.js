@@ -18,12 +18,17 @@ const dbStreams = async function () {
     }
   });
 };
+const array = [];
 const startSocket = async function (socket) {
-  //   socket.of("socket").on("connection", (socket) => {
-  //     socket.on("receive", (data) => {
-  //       console.log(data);
-  //     });
-  //   });
+  socket.of("socket").on("connection", (io) => {
+    array.push(io?.id);
+    socket.of("socket").emit("receive", array.length);
+    io.on("disconnect", () => {
+      let id = array.indexOf(io?.id);
+      array.splice(id, 1);
+      socket.of("socket").emit("receive", array.length);
+    });
+  });
 
   dbStreams();
 };
