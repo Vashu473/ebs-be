@@ -69,7 +69,6 @@ app.use((err, req, res, next) => {
 startSocket(socket);
 
 // adding routing middle ware
-app.get("/", (req, res) => res.send("Dev Here"));
 app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
 app.use("/v1/video", VideoRouter);
