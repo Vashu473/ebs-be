@@ -4,7 +4,11 @@ const otpDatabase = require("../db/schema/otp.schema");
 const { setToken } = require("../auth/jwt/jwt");
 const { sendMailToAll, sendEmail } = require("../helper/email.helper");
 
-const { unSeenVideoWarning, whatsappGroup } = require("../constants/constants");
+const {
+  unSeenVideoWarning,
+  whatsappGroup,
+  askForDetail,
+} = require("../constants/constants");
 
 async function signupM(body) {
   try {
@@ -245,6 +249,22 @@ const sendEmailToAllM = async () => {
     return { message: error.message, success: false, token: null };
   }
 };
+const sendEmailToSingleUserM = async (data) => {
+  try {
+    sendEmail({
+      email: data?.user,
+      subject: `EBS:- Details to create an account`,
+      message: askForDetail,
+    });
+    return {
+      success: true,
+      message: "sent",
+      token: null,
+    };
+  } catch (error) {
+    return { message: error.message, success: false, token: null };
+  }
+};
 
 let attendenceUser = 0;
 const attendenceM = async (req) => {
@@ -319,5 +339,6 @@ module.exports = {
   contactUs,
   sendEmailToAllM,
   attendenceM,
+  sendEmailToSingleUserM,
   // getContactUs,
 };

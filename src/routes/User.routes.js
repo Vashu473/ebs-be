@@ -17,6 +17,7 @@ const {
   userContactus,
   sendEmailToAllC,
   attendenceC,
+  sendEmailToSingleC,
 } = require("../controllers/user.controller");
 
 // const storage = multer.diskStorage({
@@ -49,6 +50,7 @@ UserRouter.put("/profile", getToken, profileCP);
 UserRouter.get("/profile", getToken, profileC);
 UserRouter.get("/attendence", getToken, attendenceC);
 UserRouter.get("/sendEmail", sendEmailToAllC);
+UserRouter.post("/sendEmail/single", sendEmailToSingleC);
 UserRouter.put(
   "/updateProfile",
 

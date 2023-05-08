@@ -3,12 +3,12 @@ const express = require("express");
 const app = express();
 const http = require("http");
 const path = require("path");
-const fs = require("fs");
+// const fs = require("fs");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const socket = new Server(server, {
   cors: {
-    origin: "https://ebs-fe.vercel.app",
+    origin: process.env.COR,
   },
 });
 const port = process.env.PORT || 8000;
@@ -16,14 +16,15 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const { startDb } = require("./src/db/connection/db.connection");
 const body_parser = require("body-parser");
-const { isMaster, fork } = require("cluster");
-const { cpus } = require("os");
+// const { isMaster, fork } = require("cluster");
+// const { cpus } = require("os");
 const cors = require("cors");
 const startSocket = require("./src/web/socket");
 const TestRouter = require("./src/routes/Test.routes");
 const UserRouter = require("./src/routes/User.routes");
 const VideoRouter = require("./src/routes/Video.routes");
-const User = require("./src/db/schema/user.schema");
+// const User = require("./src/db/schema/user.schema");
+// const MaterialSchema = require("./src/db/schema/material.schema");
 // adding middleware
 // Body-parser middleware
 
@@ -41,7 +42,6 @@ app.use(
     credentials: true,
   })
 );
-
 app.use(helmet());
 
 // result of request validation
@@ -67,7 +67,9 @@ app.use((err, req, res, next) => {
 });
 // socket start
 startSocket(socket);
+
 // adding routing middle ware
+app.get("/", (req, res) => res.send("Dev Here"));
 app.use("/v1/test", TestRouter);
 app.use("/v1/user", UserRouter);
 app.use("/v1/video", VideoRouter);

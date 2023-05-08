@@ -14,6 +14,7 @@ const {
   contactUs,
   sendEmailToAllM,
   attendenceM,
+  sendEmailToSingleUserM,
 } = require("../models/user.model");
 
 // User Signup`
@@ -32,6 +33,10 @@ async function signupC(req, res) {
 // Sent Email to All`
 async function sendEmailToAllC(req, res) {
   const result = await sendEmailToAllM(req.body);
+  res.json(result).status(200);
+}
+async function sendEmailToSingleC(req, res) {
+  const result = await sendEmailToSingleUserM(req.body);
   res.json(result).status(200);
 }
 // User Login
@@ -133,6 +138,7 @@ module.exports = {
   userForgotPassword,
   // videoForUser,
   sendEmailToAllC,
+  sendEmailToSingleC,
   userOtpVerify,
   userContactus,
   attendenceC,
